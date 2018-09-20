@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{100AE41E-9853-00A1-0814-C759729749EB}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ScoreManager.cs">
+    <Files>
+      <File FileName="Assets/Scripts/CharicterMove.cs" Line="202" Column="2" />
+      <File FileName="Assets/Scripts/ScoreManager.cs" Line="14" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
