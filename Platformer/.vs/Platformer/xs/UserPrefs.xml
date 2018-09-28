@@ -1,10 +1,11 @@
 ﻿<Properties StartupConfiguration="{100AE41E-9853-00A1-0814-C759729749EB}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MoneyBag.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/LevelManager.cs">
     <Files>
       <File FileName="Assets/Scripts/CharicterMove.cs" Line="63" Column="93" />
       <File FileName="Assets/Scripts/EnemyGoomba.cs" Line="44" Column="13" />
-      <File FileName="Assets/Scripts/MoneyBag.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/CheckPoint.cs" Line="22" Column="30" />
+      <File FileName="Assets/Scripts/LevelManager.cs" Line="47" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
