@@ -15,6 +15,8 @@ public class CharicterMove : MonoBehaviour {
     public Sprite running5;
     public Sprite falling;
     public Sprite jumping;
+    public Sprite sprNone;
+    public Sprite dying;
     
 	//constants
 	public int MoveSpeed;
@@ -27,6 +29,9 @@ public class CharicterMove : MonoBehaviour {
     public float groundCheckRadius;
     public int animSpeed;
     public int cSpriteIndex;
+    public float grav;
+    public float respawnTime;
+    public GameObject DeathPart;
 
     //initiate grounded variables
     public Transform groundCheck;
@@ -37,6 +42,8 @@ public class CharicterMove : MonoBehaviour {
     public bool isWallL;
     public bool isWallR;
 	public float hspd;
+    public float HP;
+    public bool Dead;
 
     //changing vars
     int tick;
@@ -55,6 +62,7 @@ public class CharicterMove : MonoBehaviour {
         {
             tick = animSpeed;
         }
+        Dead = false;
     }
 	
 	
@@ -74,13 +82,21 @@ public class CharicterMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//check for button press
-		//jump method
-		Jump();
-        //move method
-        Move();
-        //change sprites
-        ChangeSprite();
+        //check for button press
+        if (Dead == false)
+        {
+            //jump method
+            Jump();
+            //move method
+            Move();
+            //change sprites
+            ChangeSprite();
+        }
+        //die
+        if(HP <= 0)
+        {
+            Die();
+        }
 	}
 	
 	//actually jump
@@ -295,5 +311,18 @@ public class CharicterMove : MonoBehaviour {
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
+    }
+
+    public IEnumerator Die()
+    {
+        Dead = true;
+        GetComponent<Rigidbody2D>().gravityScale = 0f;
+        spriteRenderer.sprite = dying;
+        yield return new WaitForSeconds(respawnTime);
+
+        GetComponent<Rigidbody2D>().gravityScale = grav;
+        spriteRenderer.sprite = sprNone;
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+        Instantiate(DeathPart, transform.localPosition, new Quaternion(0f,0f,0f,0f));
     }
 }
