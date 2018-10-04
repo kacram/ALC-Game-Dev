@@ -11,6 +11,8 @@ public class EnemyGoomba : MonoBehaviour {
 
     public Transform WallCheck;
     public Transform FloorCheck;
+    public float scale;
+    public float knockBack;
 
     public float WallCheckRadius;
     public LayerMask WhatIsWall;
@@ -18,9 +20,10 @@ public class EnemyGoomba : MonoBehaviour {
     public bool ground;
     public bool wall;
     public bool MovingRight;
+    
     // Use this for initialization
     void Start () {
-		
+        scale = transform.localScale.x;
 	}
 
     private void FixedUpdate()
@@ -39,12 +42,32 @@ public class EnemyGoomba : MonoBehaviour {
         if (MovingRight)
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
-            transform.localScale = new Vector3(-1f, 1f, 1f);
+            transform.localScale = new Vector3(-scale, scale, 1f);
         }
         else
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(-MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
-            transform.localScale = new Vector3(1f, 1f, 1f);
+            transform.localScale = new Vector3(scale, scale, 1f);
         }
 	}
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.name == "PC")
+        {
+            other.GetComponent<CharicterMove>().HP -= 1;
+            //knock back
+            float PlayerXPos = other.transform.position.x;
+
+            if (PlayerXPos >= transform.position.x)
+            {
+                other.GetComponent<CharicterMove>().hspd = other.GetComponent<CharicterMove>().MaxSpeed;
+            }
+            else
+            {
+                other.GetComponent<CharicterMove>().hspd = -other.GetComponent<CharicterMove>().MaxSpeed;
+            }
+            other.GetComponent<Rigidbody2D>().velocity = new Vector2(other.GetComponent<Rigidbody2D>().velocity.x, knockBack);
+        }
+    }
 }

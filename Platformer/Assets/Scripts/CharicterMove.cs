@@ -17,9 +17,15 @@ public class CharicterMove : MonoBehaviour {
     public Sprite jumping;
     public Sprite sprNone;
     public Sprite dying;
-    
-	//constants
-	public int MoveSpeed;
+    public Sprite respawn1;
+    public Sprite respawn2;
+    public Sprite respawn3;
+    public Sprite respawn4;
+    public Sprite respawn5;
+    public Sprite respawn6;
+
+    //initiate constants
+    public int MoveSpeed;
     public float frict;
 	public float JumpHeight;
     public int MaxSpeed;
@@ -34,7 +40,7 @@ public class CharicterMove : MonoBehaviour {
     public float MaxHP;
     public GameObject DeathPart;
 
-    //initiate grounded variables
+    //initiate variables
     public Transform groundCheck;
     public Transform WallCheckL;
     public Transform WallCheckR;
@@ -42,14 +48,13 @@ public class CharicterMove : MonoBehaviour {
 	public bool grounded;
     public bool isWallL;
     public bool isWallR;
+    private float scale;
 	public float hspd;
     public float rsptm;
     public float HP;
     public bool Dead;
     public bool Dead2;
     public Transform CurrentCheckPoint;
-
-    //changing vars
     int tick;
     
 
@@ -57,7 +62,8 @@ public class CharicterMove : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        CurrentCheckPoint = new Vector2(GetComponent<Rigidbody2D>().transfom.x, GetComponent<Rigidbody2D>().transfom.y);
+        CurrentCheckPoint = transform;
+        scale = transform.localScale.x;
         Dead2 = false;
         HP = MaxHP;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -96,18 +102,22 @@ public class CharicterMove : MonoBehaviour {
             Dead = true;
         }
 
-        if (Dead == false)
+        if (Dead == false && Dead2 == false)
         {
             //jump method
             Jump();
             //move method
             Move();
+        }
+        else if (Dead)
+        {
+            //die
+            Die();
+        }
+        if (Dead == false)
+        {
             //change sprites
             ChangeSprite();
-        }
-        if (Dead)
-        {
-            Die();
         }
 	}
 	
@@ -317,32 +327,84 @@ public class CharicterMove : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) == false)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-scale, scale, 1);
         }
         else if (Input.GetKey(KeyCode.A) == false && Input.GetKey(KeyCode.D))
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(scale, scale, 1);
         }
+
+        if(Dead2 && Dead == false)
+        {
+            if (grounded == false)
+            {
+                spriteRenderer.sprite = respawn1;
+                GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -12f);
+            }
+            else
+            {
+                tick--;
+                if (tick <= 0)
+                {
+                    cSpriteIndex += 1;
+                    tick = animSpeed/2;
+                }
+
+                
+
+                switch (cSpriteIndex)
+                {
+                    case 0:
+                        spriteRenderer.sprite = respawn2;
+                        break;
+                    case 1:
+                        spriteRenderer.sprite = respawn3;
+                        break;
+                    case 2:
+                        spriteRenderer.sprite = respawn4;
+                        break;
+                    case 3:
+                        spriteRenderer.sprite = respawn5;
+                        break;
+                    case 4:
+                        spriteRenderer.sprite = respawn6;
+                        break;
+                    default:
+                        spriteRenderer.sprite = standing;
+                        Dead2 = false;
+                        GetComponent<Rigidbody2D>().gravityScale = grav;
+                        break;
+                }
+            }
+        }
+
     }
 
     public void Die()
     {
         GetComponent<Rigidbody2D>().gravityScale = 0f;
-        spriteRenderer.sprite = dying; 
-        if (rsptm <= 0)
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+        cSpriteIndex = 0;
+        spriteRenderer.sprite = dying;
+        
+        hspd = 0;
+        if (Dead2 == false)
+        {
+            Instantiate(DeathPart, transform.position, new Quaternion(0, 0, 0, 0));
             rsptm = respawnTime;
+        }
+            
+        Dead2 = true;
+        
 
         rsptm -= 1;
 
-        if (rsptm <= 0)
+        if (rsptm <= 0 && Dead2)
         {
-            GetComponent<Rigidbody2D>().gravityScale = grav;
             spriteRenderer.sprite = sprNone;
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
-            Instantiate(DeathPart, transform.localPosition, new Quaternion(0f, 0f, 0f, 0f));
             HP = MaxHP;
             Dead = false;
-            GetComponent<Rigidbody2D>().transform = new Vector2(CurrentCheckPoint.transform.x, CurentCheckPoint.transfomr.x);
+            GetComponent<Rigidbody2D>().transform.position = new Vector2( CurrentCheckPoint.transform.position.x, CurrentCheckPoint.transform.position.y + 10);
         }
     }
 }
