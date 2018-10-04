@@ -31,6 +31,7 @@ public class CharicterMove : MonoBehaviour {
     public int cSpriteIndex;
     public float grav;
     public float respawnTime;
+    public float MaxHP;
     public GameObject DeathPart;
 
     //initiate grounded variables
@@ -42,8 +43,11 @@ public class CharicterMove : MonoBehaviour {
     public bool isWallL;
     public bool isWallR;
 	public float hspd;
+    public float rsptm;
     public float HP;
     public bool Dead;
+    public bool Dead2;
+    public Transform CurrentCheckPoint;
 
     //changing vars
     int tick;
@@ -53,6 +57,9 @@ public class CharicterMove : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        CurrentCheckPoint = new Vector2(GetComponent<Rigidbody2D>().transfom.x, GetComponent<Rigidbody2D>().transfom.y);
+        Dead2 = false;
+        HP = MaxHP;
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer.sprite == null)
         {
@@ -83,6 +90,12 @@ public class CharicterMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //check for button press
+
+        if (HP <= 0)
+        {
+            Dead = true;
+        }
+
         if (Dead == false)
         {
             //jump method
@@ -92,8 +105,7 @@ public class CharicterMove : MonoBehaviour {
             //change sprites
             ChangeSprite();
         }
-        //die
-        if(HP <= 0)
+        if (Dead)
         {
             Die();
         }
@@ -313,16 +325,24 @@ public class CharicterMove : MonoBehaviour {
         }
     }
 
-    public IEnumerator Die()
+    public void Die()
     {
-        Dead = true;
         GetComponent<Rigidbody2D>().gravityScale = 0f;
-        spriteRenderer.sprite = dying;
-        yield return new WaitForSeconds(respawnTime);
+        spriteRenderer.sprite = dying; 
+        if (rsptm <= 0)
+            rsptm = respawnTime;
 
-        GetComponent<Rigidbody2D>().gravityScale = grav;
-        spriteRenderer.sprite = sprNone;
-        GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
-        Instantiate(DeathPart, transform.localPosition, new Quaternion(0f,0f,0f,0f));
+        rsptm -= 1;
+
+        if (rsptm <= 0)
+        {
+            GetComponent<Rigidbody2D>().gravityScale = grav;
+            spriteRenderer.sprite = sprNone;
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+            Instantiate(DeathPart, transform.localPosition, new Quaternion(0f, 0f, 0f, 0f));
+            HP = MaxHP;
+            Dead = false;
+            GetComponent<Rigidbody2D>().transform = new Vector2(CurrentCheckPoint.transform.x, CurentCheckPoint.transfomr.x);
+        }
     }
 }

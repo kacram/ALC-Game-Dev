@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeathPlane : MonoBehaviour {
 
-
+    public bool toggle;
 
 	// Use this for initialization
 	void Start () {
@@ -16,9 +16,13 @@ public class DeathPlane : MonoBehaviour {
 		
 	}
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PC"))
-            other.GetComponent<CharicterMove>().Dead = true;
+        if (other.name == "PC")
+        {
+            other.GetComponent<CharicterMove>().HP = 0;
+            toggle = true;
+        }
+        toggle = true;
     }
 }
