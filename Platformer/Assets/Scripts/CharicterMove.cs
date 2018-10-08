@@ -27,7 +27,8 @@ public class CharicterMove : MonoBehaviour {
     //initiate constants
     public int MoveSpeed;
     public float frict;
-	public float JumpHeight;
+    public float MFrict;
+    public float JumpHeight;
     public int MaxSpeed;
     public float AirSpeed;
     public float slideSpeed;
@@ -50,7 +51,6 @@ public class CharicterMove : MonoBehaviour {
     public bool isWallR;
     private float scale;
 	public float hspd;
-    public float rsptm;
     public float HP;
     public bool Dead;
     public bool Dead2;
@@ -256,9 +256,13 @@ public class CharicterMove : MonoBehaviour {
 
 
 
-		if (Mathf.Abs(hspd) > MaxSpeed)
+        if (hspd > MaxSpeed)
         {
-            hspd = Mathf.Sign(hspd)*MaxSpeed;
+            hspd -= MFrict;
+        }
+        if (hspd < MaxSpeed)
+        {
+            hspd += MFrict;
         }
 
 
@@ -390,8 +394,7 @@ public class CharicterMove : MonoBehaviour {
         hspd = 0;
         if (Dead2 == false)
         {
-            Instantiate(DeathPart, transform.position, new Quaternion(0, 0, 0, 0));
-            rsptm = respawnTime;
+            float rsptm = respawnTime;
         }
             
         Dead2 = true;

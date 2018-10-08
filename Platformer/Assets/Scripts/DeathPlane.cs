@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DeathPlane : MonoBehaviour {
 
-    public bool toggle;
 
 	// Use this for initialization
 	void Start () {
@@ -21,8 +20,6 @@ public class DeathPlane : MonoBehaviour {
         if (other.name == "PC")
         {
             other.GetComponent<CharicterMove>().HP = 0;
-            toggle = true;
         }
-        toggle = true;
     }
 }
