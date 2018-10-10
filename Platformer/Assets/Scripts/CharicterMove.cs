@@ -40,6 +40,8 @@ public class CharicterMove : MonoBehaviour {
     public float respawnTime;
     public float MaxHP;
     public GameObject DeathPart;
+    public GameObject Projectile;
+    public Transform FirePoint;
 
     //initiate variables
     public Transform groundCheck;
@@ -50,6 +52,7 @@ public class CharicterMove : MonoBehaviour {
     public bool isWallL;
     public bool isWallR;
     private float scale;
+    private float rsptm;
 	public float hspd;
     public float HP;
     public bool Dead;
@@ -108,6 +111,11 @@ public class CharicterMove : MonoBehaviour {
             Jump();
             //move method
             Move();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                //shooting
+                Shoot();
+            }
         }
         else if (Dead)
         {
@@ -129,7 +137,7 @@ public class CharicterMove : MonoBehaviour {
         //if player is on ground and space is hit player jumps
         if (grounded)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.W))
             GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, JumpHeight);
         }
 
@@ -151,7 +159,7 @@ public class CharicterMove : MonoBehaviour {
                             GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,-slideSpeed);
                         }
                         //wall jump
-                        if (Input.GetKeyDown(KeyCode.Space))
+                        if (Input.GetKeyDown(KeyCode.W))
                         {
                             GetComponent<Rigidbody2D>().velocity = new Vector2(0, JumpHeight);
                             hspd = MaxSpeed;
@@ -174,7 +182,7 @@ public class CharicterMove : MonoBehaviour {
                             GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, -slideSpeed);
                         }
                         //wall jump
-                        if (Input.GetKeyDown(KeyCode.Space))
+                        if (Input.GetKeyDown(KeyCode.W))
                         {
                             GetComponent<Rigidbody2D>().velocity = new Vector2(0, JumpHeight);
                             hspd = -MaxSpeed;
@@ -256,13 +264,9 @@ public class CharicterMove : MonoBehaviour {
 
 
 
-        if (hspd > MaxSpeed)
+        if (Mathf.Abs(hspd) > MaxSpeed)
         {
-            hspd -= MFrict;
-        }
-        if (hspd < MaxSpeed)
-        {
-            hspd += MFrict;
+            hspd = MaxSpeed * Mathf.Sign(hspd);
         }
 
 
@@ -384,17 +388,22 @@ public class CharicterMove : MonoBehaviour {
 
     }
 
+    public void Shoot()
+    {
+        Instantiate(Projectile, FirePoint.transform.position, FirePoint.transform.rotation);
+    }
+
     public void Die()
     {
         GetComponent<Rigidbody2D>().gravityScale = 0f;
         GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
         cSpriteIndex = 0;
         spriteRenderer.sprite = dying;
-        
+
         hspd = 0;
         if (Dead2 == false)
         {
-            float rsptm = respawnTime;
+            rsptm = respawnTime;
         }
             
         Dead2 = true;
