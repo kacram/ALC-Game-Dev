@@ -6,6 +6,8 @@ public class EnemyGoomba : MonoBehaviour {
 
 
     public float MoveSpeed;
+    public float HP;
+    public int pointsToAdd;
 
     public bool Move;
 
@@ -34,6 +36,13 @@ public class EnemyGoomba : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+        if (HP <= 0)
+        {
+            ScoreManager.AddPoints(pointsToAdd);
+            Destroy(gameObject);
+        }
+
         if (wall || !ground)
         {
             MovingRight = !MovingRight;
@@ -70,4 +79,6 @@ public class EnemyGoomba : MonoBehaviour {
             other.GetComponent<Rigidbody2D>().velocity = new Vector2(other.GetComponent<Rigidbody2D>().velocity.x, knockBack);
         }
     }
+
+
 }

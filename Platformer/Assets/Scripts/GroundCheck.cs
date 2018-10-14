@@ -8,6 +8,7 @@ public class GroundCheck : MonoBehaviour {
 
     public float offsetX;
     public float offsetY;
+    public float offsetZ;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +17,6 @@ public class GroundCheck : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-        transform.position = new Vector3(playerLocation.position.x + offsetX, playerLocation.position.y + offsetY, 0);
+        transform.position = new Vector3(playerLocation.position.x + offsetX, playerLocation.position.y + offsetY, offsetZ);
 	}
 }
