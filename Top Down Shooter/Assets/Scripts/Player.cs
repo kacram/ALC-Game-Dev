@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+    public Rigidbody2D Mouse;
+
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        transform.localRotation = new Quaternion(0f,0f, 57.2958f * Mathf.Atan2(transform.localPosition.y - Input.mousePosition.y,transform.localPosition.x - Input.mousePosition.x),0f);
-	}
+        Vector3 mouse = Mouse.position;
+        transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(mouse.y - transform.position.y,mouse.x - transform.position.x) * Mathf.Rad2Deg);
+    }
 }
