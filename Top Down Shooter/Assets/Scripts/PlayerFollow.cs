@@ -16,7 +16,7 @@ public class PlayerFollow : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        transform.localPosition = new Vector3(transform.localPosition.x + XOffset,transform.localPosition.y + YOffset,transform.localPosition.y + ZOffset);
+	void LateUpdate () {
+        transform.localPosition = new Vector3(Player.position.x + XOffset, Player.position.y + YOffset, Player.position.z + ZOffset);
 	}
 }

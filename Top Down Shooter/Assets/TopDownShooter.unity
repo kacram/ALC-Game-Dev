@@ -203,6 +203,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mouse: {fileID: 1672175614}
+  keyUp: 119
+  KeyDown: 115
+  keyLeft: 97
+  keyRight: 100
+  pressed: 0
+  speed: 5
 --- !u!50 &235062475
 Rigidbody2D:
   serializedVersion: 4
@@ -362,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1771fe0fdfda354428be24aab1196c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  Player: {fileID: 235062473}
   XOffset: 0
   YOffset: 0
   ZOffset: -10
