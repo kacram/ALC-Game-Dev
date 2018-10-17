@@ -19,24 +19,26 @@ public class Player : MonoBehaviour {
 
     //constants
     public float speed;
+    public GameObject Projectile;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    }
+
+    // Update is called once per frame
+    void Update() {
         Vector3 mouse = Mouse.position;
-        transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(mouse.y - transform.position.y,mouse.x - transform.position.x) * Mathf.Rad2Deg);
+        transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(mouse.y - transform.position.y, mouse.x - transform.position.x) * Mathf.Rad2Deg);
 
         move();
+        fire();
     }
 
     private void move()
     {
-        if (Input.GetKey (keyUp))
+        if (Input.GetKey(keyUp))
         {
             vSpeed += speed;
             pressed = true;
@@ -54,9 +56,17 @@ public class Player : MonoBehaviour {
             hSpeed += speed;
         }
 
-        GetComponent<Rigidbody2D>().velocity = new Vector2(hSpeed,vSpeed);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(hSpeed, vSpeed);
 
         hSpeed = 0;
         vSpeed = 0;
+    }
+
+    private void fire()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Instantiate(Projectile);
+        }
     }
 }

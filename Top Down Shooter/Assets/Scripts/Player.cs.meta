@@ -1,11 +1,12 @@
 fileFormatVersion: 2
 guid: d99aa0fad4416ea4cb0c2daff8b7cefc
-timeCreated: 1539384989
-licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Mouse: {instanceID: 0}
+  - Projectile: {fileID: 1994023931388962, guid: 9190ea5a74c99804282dfe3225cb0259,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
