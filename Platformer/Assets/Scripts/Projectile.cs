@@ -11,14 +11,11 @@ public class Projectile : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Speed = Speed * Mathf.Sign(PC.transform.localScale.x);
-        GetComponent<Rigidbody2D>().velocity = new Vector2(Speed + (PC.GetComponent<Rigidbody2D>().velocity.x / 3), GetComponent<Rigidbody2D>().velocity.y + (PC.GetComponent<Rigidbody2D>().velocity.y / 3));
+        GetComponent<Rigidbody2D>().velocity = new Vector2(Speed,0f);
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-    private void OnTriggerEnter2D(Collider2D other)
+
+
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Enemy")
         {
