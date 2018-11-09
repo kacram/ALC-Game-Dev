@@ -18,6 +18,7 @@ public class EnemyGoomba : MonoBehaviour {
 
     public float WallCheckRadius;
     public LayerMask WhatIsWall;
+    public GameObject Coin;
 
     public bool ground;
     public bool wall;
@@ -40,6 +41,7 @@ public class EnemyGoomba : MonoBehaviour {
         if (HP <= 0)
         {
             ScoreManager.AddPoints(pointsToAdd);
+            Instantiate(Coin, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 
@@ -79,6 +81,4 @@ public class EnemyGoomba : MonoBehaviour {
             other.GetComponent<Rigidbody2D>().velocity = new Vector2(other.GetComponent<Rigidbody2D>().velocity.x, knockBack);
         }
     }
-
-
 }

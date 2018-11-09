@@ -21,8 +21,11 @@ public class CoinPickup : MonoBehaviour {
         if(other.GetComponent<Rigidbody2D>() == null)
             return;
 
-        ScoreManager.AddPoints(pointsToAdd);
+        if (other.name == "PC")
+        {
+            ScoreManager.AddPoints(pointsToAdd);
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }

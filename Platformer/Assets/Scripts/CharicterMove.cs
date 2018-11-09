@@ -13,6 +13,12 @@ public class CharicterMove : MonoBehaviour {
     public Sprite running3;
     public Sprite running4;
     public Sprite running5;
+    public Sprite runngun0;
+    public Sprite runngun1;
+    public Sprite runngun2;
+    public Sprite runngun3;
+    public Sprite runngun4;
+    public Sprite runngun5;
     public Sprite falling;
     public Sprite jumping;
     public Sprite sprNone;
@@ -23,6 +29,9 @@ public class CharicterMove : MonoBehaviour {
     public Sprite respawn4;
     public Sprite respawn5;
     public Sprite respawn6;
+    public Sprite StandShoot;
+    public Sprite fallshoot;
+    public Sprite jumpshoot;
 
     //initiate constants
     public int MoveSpeed;
@@ -39,6 +48,8 @@ public class CharicterMove : MonoBehaviour {
     public float grav;
     public float respawnTime;
     public float MaxHP;
+    public int ShootTime;
+    private int ShootTime2;
     public GameObject DeathPart;
     public GameObject Projectile;
     public Transform FirePoint;
@@ -53,6 +64,7 @@ public class CharicterMove : MonoBehaviour {
     public bool isWallR;
     private float scale;
     private float rsptm;
+    public bool Shooting;
 	public float hspd;
     public float HP;
     public bool Dead;
@@ -99,6 +111,13 @@ public class CharicterMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //check for button press
+
+        ShootTime2 -= 1;
+
+        if(ShootTime2 < 0)
+        {
+            Shooting = false;
+        }
 
         if (HP <= 0)
         {
@@ -279,7 +298,14 @@ public class CharicterMove : MonoBehaviour {
         {
             if (hspd == 0)
             {
-                spriteRenderer.sprite = standing;
+                if (Shooting == false)
+                {
+                    spriteRenderer.sprite = standing;
+                }
+                else
+                {
+                    spriteRenderer.sprite = StandShoot;
+                }
             }
             if (hspd != 0)
             {
@@ -293,30 +319,59 @@ public class CharicterMove : MonoBehaviour {
                 {
                     cSpriteIndex = 0;
                 }
-
-                switch (cSpriteIndex)
+                if (Shooting == false)
                 {
-                    case 0:
-                        spriteRenderer.sprite = running0;
-                        break;
-                    case 1:
-                        spriteRenderer.sprite = running1;
-                        break;
-                    case 2:
-                        spriteRenderer.sprite = running2;
-                        break;
-                    case 3:
-                        spriteRenderer.sprite = running3;
-                        break;
-                    case 4:
-                        spriteRenderer.sprite = running4;
-                        break;
-                    case 5:
-                        spriteRenderer.sprite = running5;
-                        break;
-                    default:
-                        spriteRenderer.sprite = standing;
-                        break;
+                    switch (cSpriteIndex)
+                    {
+                        case 0:
+                            spriteRenderer.sprite = running0;
+                            break;
+                        case 1:
+                            spriteRenderer.sprite = running1;
+                            break;
+                        case 2:
+                            spriteRenderer.sprite = running2;
+                            break;
+                        case 3:
+                            spriteRenderer.sprite = running3;
+                            break;
+                        case 4:
+                            spriteRenderer.sprite = running4;
+                            break;
+                        case 5:
+                            spriteRenderer.sprite = running5;
+                            break;
+                        default:
+                            spriteRenderer.sprite = standing;
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (cSpriteIndex)
+                    {
+                        case 0:
+                            spriteRenderer.sprite = runngun0;
+                            break;
+                        case 1:
+                            spriteRenderer.sprite = runngun1;
+                            break;
+                        case 2:
+                            spriteRenderer.sprite = runngun2;
+                            break;
+                        case 3:
+                            spriteRenderer.sprite = runngun3;
+                            break;
+                        case 4:
+                            spriteRenderer.sprite = runngun4;
+                            break;
+                        case 5:
+                            spriteRenderer.sprite = runngun5;
+                            break;
+                        default:
+                            spriteRenderer.sprite = standing;
+                            break;
+                    }
                 }
             }
         }
@@ -325,11 +380,25 @@ public class CharicterMove : MonoBehaviour {
         {
             if (GetComponent<Rigidbody2D>().velocity.y < 0)
             {
-                spriteRenderer.sprite = falling;
+                if (Shooting == false)
+                {
+                    spriteRenderer.sprite = falling;
+                }
+                else
+                {
+                    spriteRenderer.sprite = fallshoot;
+                }
             }
             if (GetComponent<Rigidbody2D>().velocity.y >= 0)
             {
-                spriteRenderer.sprite = jumping;
+                if (Shooting == false)
+                {
+                    spriteRenderer.sprite = jumping;
+                }
+                else
+                {
+                    spriteRenderer.sprite = jumpshoot;
+                }
             }
         }
 
@@ -346,6 +415,7 @@ public class CharicterMove : MonoBehaviour {
         {
             if (grounded == false)
             {
+
                 spriteRenderer.sprite = respawn1;
                 GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -12f);
             }
@@ -391,6 +461,8 @@ public class CharicterMove : MonoBehaviour {
     public void Shoot()
     {
         Instantiate(Projectile, FirePoint.transform.position, FirePoint.transform.rotation);
+        ShootTime2 = ShootTime;
+        Shooting = true;
     }
 
     public void Die()
