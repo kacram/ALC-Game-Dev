@@ -8,6 +8,7 @@ public class EnemyGoomba : MonoBehaviour {
     public float MoveSpeed;
     public float HP;
     public int pointsToAdd;
+    public float Damage;
 
     public bool Move;
 
@@ -66,7 +67,7 @@ public class EnemyGoomba : MonoBehaviour {
     {
         if (other.name == "PC")
         {
-            other.GetComponent<CharicterMove>().HP -= 1;
+            other.GetComponent<CharicterMove>().HP -= Damage;
             //knock back
             float PlayerXPos = other.transform.position.x;
 

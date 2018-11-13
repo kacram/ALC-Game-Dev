@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharicterMove : MonoBehaviour {
+public class CharicterMove : MonoBehaviour
+{
 
     //assign sprites
     private SpriteRenderer spriteRenderer;
@@ -32,6 +33,7 @@ public class CharicterMove : MonoBehaviour {
     public Sprite StandShoot;
     public Sprite fallshoot;
     public Sprite jumpshoot;
+    public Sprite slide;
 
     //initiate constants
     public int MoveSpeed;
@@ -50,33 +52,40 @@ public class CharicterMove : MonoBehaviour {
     public float MaxHP;
     public int ShootTime;
     private int ShootTime2;
+    public int slideDuration;
     public GameObject DeathPart;
     public GameObject Projectile;
     public Transform FirePoint;
+
+    //keybinds
+    public KeyCode buttonSlide;
 
     //initiate variables
     public Transform groundCheck;
     public Transform WallCheckL;
     public Transform WallCheckR;
-	public LayerMask whatIsGround;
-	public bool grounded;
+    public LayerMask whatIsGround;
+    public bool grounded;
     public bool isWallL;
     public bool isWallR;
     private float scale;
     private float rsptm;
     public bool Shooting;
-	public float hspd;
+    public float hspd;
     public float HP;
     public bool Dead;
     public bool Dead2;
+    private int slideDuration2;
     public Transform CurrentCheckPoint;
+    public string state = "normal"; 
     int tick;
-    
 
 
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start()
+    {
         CurrentCheckPoint = transform;
         scale = transform.localScale.x;
         Dead2 = false;
@@ -92,11 +101,12 @@ public class CharicterMove : MonoBehaviour {
         }
         Dead = false;
     }
-	
-	
-	void FixedUpdate () {
+
+
+    void FixedUpdate()
+    {
         //checks to see if there is ground
-		grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+        grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
         //checks for wall on left
         isWallL = Physics2D.OverlapCircle(WallCheckL.position, wallCheckRadius, whatIsGround);
@@ -106,15 +116,16 @@ public class CharicterMove : MonoBehaviour {
         isWallR = Physics2D.OverlapCircle(WallCheckR.position, wallCheckRadius, whatIsGround);
 
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         //check for button press
 
         ShootTime2 -= 1;
 
-        if(ShootTime2 < 0)
+        if (ShootTime2 < 0)
         {
             Shooting = false;
         }
@@ -123,41 +134,54 @@ public class CharicterMove : MonoBehaviour {
         {
             Dead = true;
         }
-
-        if (Dead == false && Dead2 == false)
+        if (state == "normal")
         {
-            //jump method
-            Jump();
-            //move method
-            Move();
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Dead == false && Dead2 == false)
             {
-                //shooting
-                Shoot();
+                //jump method
+                Jump();
+                //move method
+                Move();
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    //shooting
+                    Shoot();
+                }
+            }
+            else if (Dead)
+            {
+                //die
+                Die();
+            }
+            if (Dead == false)
+            {
+                //change sprites
+                ChangeSprite();
+            }
+            if(Input.GetKey(buttonSlide))
+            {
+                Slide();
+                state = "sliding";
+                slideDuration2 = slideDuration;
             }
         }
-        else if (Dead)
+        else if(state == "sliding")
         {
-            //die
-            Die();
+            Slide();
         }
-        if (Dead == false)
-        {
-            //change sprites
-            ChangeSprite();
-        }
-	}
-	
-	//actually jump
-	
-	
-	public void Jump (){
+    }
+
+    //actually jump
+
+
+    public void Jump()
+    {
 
         //if player is on ground and space is hit player jumps
         if (grounded)
         {
             if (Input.GetKeyDown(KeyCode.W))
-            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, JumpHeight);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, JumpHeight);
         }
 
         //if there is no ground
@@ -175,7 +199,7 @@ public class CharicterMove : MonoBehaviour {
                         //slide down the wall slowly
                         if (GetComponent<Rigidbody2D>().velocity.y < -slideSpeed)
                         {
-                            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,-slideSpeed);
+                            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, -slideSpeed);
                         }
                         //wall jump
                         if (Input.GetKeyDown(KeyCode.W))
@@ -210,13 +234,13 @@ public class CharicterMove : MonoBehaviour {
                 }
             }
         }
-	}
-    
+    }
 
 
 
-    public void Move ()
-	{
+
+    public void Move()
+    {
         //ground friction
         if (grounded)
         {
@@ -253,8 +277,8 @@ public class CharicterMove : MonoBehaviour {
             }
         }
         //if you hit left move left
-		if(Input.GetKey(KeyCode.A))
-		{
+        if (Input.GetKey(KeyCode.A))
+        {
             //if you are on the ground move this fast
             if (grounded)
             {
@@ -265,10 +289,10 @@ public class CharicterMove : MonoBehaviour {
             {
                 hspd -= AirSpeed;
             }
-		}
-	    //if you hit right move right
-		if (Input.GetKey(KeyCode.D))
-		{
+        }
+        //if you hit right move right
+        if (Input.GetKey(KeyCode.D))
+        {
             //if you are on the ground move this fast
             if (grounded)
             {
@@ -279,7 +303,7 @@ public class CharicterMove : MonoBehaviour {
             {
                 hspd += AirSpeed;
             }
-		}
+        }
 
 
 
@@ -289,8 +313,8 @@ public class CharicterMove : MonoBehaviour {
         }
 
 
-		GetComponent<Rigidbody2D>().velocity = new Vector2(hspd ,GetComponent<Rigidbody2D>().velocity.y);
-	}
+        GetComponent<Rigidbody2D>().velocity = new Vector2(hspd, GetComponent<Rigidbody2D>().velocity.y);
+    }
 
     public void ChangeSprite()
     {
@@ -411,7 +435,7 @@ public class CharicterMove : MonoBehaviour {
             transform.localScale = new Vector3(scale, scale, 1);
         }
 
-        if(Dead2 && Dead == false)
+        if (Dead2 && Dead == false)
         {
             if (grounded == false)
             {
@@ -425,10 +449,10 @@ public class CharicterMove : MonoBehaviour {
                 if (tick <= 0)
                 {
                     cSpriteIndex += 1;
-                    tick = animSpeed/2;
+                    tick = animSpeed / 2;
                 }
 
-                
+
 
                 switch (cSpriteIndex)
                 {
@@ -477,18 +501,23 @@ public class CharicterMove : MonoBehaviour {
         {
             rsptm = respawnTime;
         }
-            
+
         Dead2 = true;
-        
+
 
         rsptm -= 1;
 
         if (rsptm <= 0 && Dead2)
         {
+            GetComponent<Rigidbody2D>().transform.position = new Vector2(CurrentCheckPoint.transform.position.x, CurrentCheckPoint.transform.position.y + 10);
             spriteRenderer.sprite = sprNone;
             HP = MaxHP;
             Dead = false;
-            GetComponent<Rigidbody2D>().transform.position = new Vector2( CurrentCheckPoint.transform.position.x, CurrentCheckPoint.transform.position.y + 10);
         }
+    }
+
+    public void Slide()
+    {
+        state = "sliding";
     }
 }
