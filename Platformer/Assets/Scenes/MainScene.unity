@@ -113,11 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &71314116 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1213767543263922, guid: db585ad9ae92a41ef81e12ac593ce8c2,
-    type: 2}
-  m_PrefabInternal: {fileID: 1971791496}
 --- !u!1 &168603336
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,11 +1119,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114987329817931362, guid: 83ff4e0bacac74ffa89deeff110f802f,
         type: 2}
-      propertyPath: Projectile
-      value: 
-      objectReference: {fileID: 71314116}
-    - target: {fileID: 114987329817931362, guid: 83ff4e0bacac74ffa89deeff110f802f,
-        type: 2}
       propertyPath: groundCheck
       value: 
       objectReference: {fileID: 1069701397}
@@ -1147,6 +1137,11 @@ Prefab:
       propertyPath: CurrentCheckPoint
       value: 
       objectReference: {fileID: 1353605146}
+    - target: {fileID: 114987329817931362, guid: 83ff4e0bacac74ffa89deeff110f802f,
+        type: 2}
+      propertyPath: slideDuration
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83ff4e0bacac74ffa89deeff110f802f, type: 2}
   m_IsPrefabAsset: 0

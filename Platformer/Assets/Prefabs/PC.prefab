@@ -154,7 +154,7 @@ MonoBehaviour:
   StandShoot: {fileID: 21300024, guid: e02a563a695fc184ba3a814f45269b18, type: 3}
   fallshoot: {fileID: 21300060, guid: e02a563a695fc184ba3a814f45269b18, type: 3}
   jumpshoot: {fileID: 21300060, guid: e02a563a695fc184ba3a814f45269b18, type: 3}
-  slide: {fileID: 0}
+  slide: {fileID: 21300068, guid: e02a563a695fc184ba3a814f45269b18, type: 3}
   MoveSpeed: 1
   frict: 0.5
   MFrict: 0
@@ -170,11 +170,11 @@ MonoBehaviour:
   respawnTime: 60
   MaxHP: 15
   ShootTime: 60
-  slideDuration: 0
+  slideDuration: 10
   DeathPart: {fileID: 0}
   Projectile: {fileID: 1213767543263922, guid: db585ad9ae92a41ef81e12ac593ce8c2, type: 2}
   FirePoint: {fileID: 4591733317750946}
-  buttonSlide: 0
+  buttonSlide: 304
   groundCheck: {fileID: 0}
   WallCheckL: {fileID: 0}
   WallCheckR: {fileID: 0}

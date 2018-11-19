@@ -519,5 +519,13 @@ public class CharicterMove : MonoBehaviour
     public void Slide()
     {
         state = "sliding";
+        slideDuration2--;
+        if (slideDuration2 <= 0)
+        {
+            state = "normal";
+            return;
+        }
+        spriteRenderer.sprite = slide;
+        hspd = Mathf.Sign(hspd) * MaxSpeed;
     }
 }
