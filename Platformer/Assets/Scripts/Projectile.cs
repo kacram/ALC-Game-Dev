@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
-    public Transform FirePoint;
-    public Transform PC;
+    public GameObject FirePoint;
+    public GameObject PC;
     public float Speed;
+    public float LifeTime;
 
 	// Use this for initialization
 	void Start () {
-        Speed = Speed * Mathf.Sign(PC.transform.localScale.x);
-        GetComponent<Rigidbody2D>().velocity = new Vector2(Speed,0f);
+
+
+        PC = GameObject.Find("PC");
+        FirePoint = GameObject.Find("FirePoint");
+        Speed = Speed * Mathf.Sign(PC.transform.localScale.x) + PC.GetComponent<Rigidbody2D>().velocity.x;
+        GetComponent<Rigidbody2D>().velocity = new Vector2(Speed, 0f);
     }
 
 
@@ -27,5 +32,14 @@ public class Projectile : MonoBehaviour {
             Destroy(gameObject);
         }
 
+    }
+
+    private void Update()
+    {
+        LifeTime--;
+        if (LifeTime <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

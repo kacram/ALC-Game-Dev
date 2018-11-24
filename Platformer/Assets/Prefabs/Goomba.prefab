@@ -188,11 +188,12 @@ MonoBehaviour:
   MoveSpeed: 2
   HP: 5
   pointsToAdd: 0
+  Damage: 3
   Move: 0
   WallCheck: {fileID: 4451974899458508}
   FloorCheck: {fileID: 4802761359153312}
   scale: 0
-  knockBack: 2
+  knockBack: 3
   WallCheckRadius: 0.005
   WhatIsWall:
     serializedVersion: 2

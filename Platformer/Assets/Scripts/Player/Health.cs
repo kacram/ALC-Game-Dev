@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Health : MonoBehaviour {
 
-    public int HP;
+    public float HP;
+    public float healthSize;
     public GameObject Player;
-    public Texture2D HPSprite;
 	
 	// Update is called once per frame
 	void Update () {
-        
+        HP = Player.GetComponent<CharicterMove>().HP;
+
+        transform.localScale = new Vector3(transform.localScale.x,healthSize * HP);
 	}
 }
