@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1084277235776032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.091, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1, y: -0.002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4566959577841970}
@@ -83,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1445477782824318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4731413, y: -0.0641312, z: -0.35200644}
+  m_LocalPosition: {x: -0.42, y: 0.55, z: -0.35200644}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4802761359153312}
@@ -98,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1248355416027094}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.073, y: -0.084, z: 0}
+  m_LocalPosition: {x: 0.099, y: -0.084, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4566959577841970}
@@ -138,9 +138,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 0.2, y: 0.28}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -163,9 +163,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 0.2, y: 0.28}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -189,6 +189,10 @@ MonoBehaviour:
   HP: 5
   pointsToAdd: 0
   Damage: 3
+  Walking0: {fileID: 21300022, guid: 3a3741782df16412fb3f7f0491b7555a, type: 3}
+  Walking1: {fileID: 21300024, guid: 3a3741782df16412fb3f7f0491b7555a, type: 3}
+  Walking2: {fileID: 21300026, guid: 3a3741782df16412fb3f7f0491b7555a, type: 3}
+  Walking3: {fileID: 21300024, guid: 3a3741782df16412fb3f7f0491b7555a, type: 3}
   Move: 0
   WallCheck: {fileID: 4451974899458508}
   FloorCheck: {fileID: 4802761359153312}
@@ -199,6 +203,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1792
   Coin: {fileID: 1579703627742020, guid: a9ba0da81087d4cc38cc9f6e0467ac11, type: 2}
+  tickDelay: 6
+  tick: 0
   ground: 0
   wall: 0
   MovingRight: 0
@@ -237,8 +243,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.990566, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300024, guid: 3a3741782df16412fb3f7f0491b7555a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
