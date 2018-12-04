@@ -40,7 +40,7 @@ public class CharicterMove : MonoBehaviour
     public float frict;
     public float MFrict;
     public float JumpHeight;
-    public int MaxSpeed;
+    public int MaxMoveSpeed;
     public float AirSpeed;
     public float slideSpeed;
     public float wallCheckRadius;
@@ -71,6 +71,9 @@ public class CharicterMove : MonoBehaviour
     private float scale;
     private float rsptm;
     public bool Shooting;
+    public float Mhspd;
+    public float Ehspd;
+    public float KBhspd;
     public float hspd;
     public float HP;
     public bool Dead;
@@ -205,7 +208,7 @@ public class CharicterMove : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.W))
                         {
                             GetComponent<Rigidbody2D>().velocity = new Vector2(0, JumpHeight);
-                            hspd = MaxSpeed;
+                            Mhspd = MaxMoveSpeed;
                         }
                     }
                 }
@@ -228,7 +231,7 @@ public class CharicterMove : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.W))
                         {
                             GetComponent<Rigidbody2D>().velocity = new Vector2(0, JumpHeight);
-                            hspd = -MaxSpeed;
+                            Mhspd = -MaxMoveSpeed;
                         }
                     }
                 }
@@ -241,39 +244,61 @@ public class CharicterMove : MonoBehaviour
 
     public void Move()
     {
+        
         //ground friction
         if (grounded)
         {
-            if (hspd != 0)
+            if (Mhspd != 0)
             {
-                if (hspd > frict)
+                if (Mhspd > frict)
                 {
-                    hspd -= frict;
+                    Mhspd -= frict;
                 }
-                else if (hspd < -frict)
+                else if (Mhspd < -frict)
                 {
-                    hspd += frict;
+                    Mhspd += frict;
                 }
                 else
                 {
-                    hspd = 0;
+                    Mhspd = 0;
                 }
             }
         }
+        //environment friction
+        //ground friction
+        if (grounded)
+        {
+            if (KBhspd != 0)
+            {
+                if (KBhspd > frict)
+                {
+                    KBhspd -= frict;
+                }
+                else if (KBhspd < -frict)
+                {
+                    KBhspd += frict;
+                }
+                else
+                {
+                    KBhspd = 0;
+                }
+            }
+        }
+
         //dont stick to wall on left
         if (isWallL)
         {
-            if (hspd < 0)
+            if (Mhspd < 0)
             {
-                hspd = 0;
+                Mhspd = 0;
             }
         }
         //don't stick to wall on right
         if (isWallR)
         {
-            if (hspd > 0)
+            if (Mhspd > 0)
             {
-                hspd = 0;
+                Mhspd = 0;
             }
         }
         //if you hit left move left
@@ -282,12 +307,12 @@ public class CharicterMove : MonoBehaviour
             //if you are on the ground move this fast
             if (grounded)
             {
-                hspd -= MoveSpeed;
+                Mhspd -= MoveSpeed;
             }
             //if you are in the air move this fast
             if (grounded == false)
             {
-                hspd -= AirSpeed;
+                Mhspd -= AirSpeed;
             }
         }
         //if you hit right move right
@@ -296,31 +321,33 @@ public class CharicterMove : MonoBehaviour
             //if you are on the ground move this fast
             if (grounded)
             {
-                hspd += MoveSpeed;
+                Mhspd += MoveSpeed;
             }
             //if you are in the air move this fast
             if (grounded == false)
             {
-                hspd += AirSpeed;
+                Mhspd += AirSpeed;
             }
         }
 
 
 
-        if (Mathf.Abs(hspd) > MaxSpeed)
+        if (Mathf.Abs(Mhspd) > MaxMoveSpeed)
         {
-            hspd = MaxSpeed * Mathf.Sign(hspd);
+           Mhspd = MaxMoveSpeed * Mathf.Sign(Mhspd);
         }
 
+        hspd = Mhspd + Ehspd;
 
         GetComponent<Rigidbody2D>().velocity = new Vector2(hspd, GetComponent<Rigidbody2D>().velocity.y);
+        Ehspd = 0;
     }
 
     public void ChangeSprite()
     {
         if (grounded)
         {
-            if (hspd == 0)
+            if (Mhspd == 0)
             {
                 if (Shooting == false)
                 {
@@ -331,7 +358,7 @@ public class CharicterMove : MonoBehaviour
                     spriteRenderer.sprite = StandShoot;
                 }
             }
-            if (hspd != 0)
+            if (Mhspd != 0)
             {
                 tick--;
                 if (tick <= 0)
@@ -399,6 +426,8 @@ public class CharicterMove : MonoBehaviour
                 }
             }
         }
+
+        
 
         if (grounded == false)
         {
@@ -496,7 +525,7 @@ public class CharicterMove : MonoBehaviour
         cSpriteIndex = 0;
         spriteRenderer.sprite = dying;
 
-        hspd = 0;
+        Mhspd = 0;
         if (Dead2 == false)
         {
             rsptm = respawnTime;
@@ -526,6 +555,6 @@ public class CharicterMove : MonoBehaviour
             return;
         }
         spriteRenderer.sprite = slide;
-        hspd = Mathf.Sign(hspd) * MaxSpeed;
+        Mhspd = Mathf.Sign(Mhspd) * MaxMoveSpeed;
     }
 }

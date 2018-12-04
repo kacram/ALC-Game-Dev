@@ -114,11 +114,11 @@ public class EnemyGoomba : MonoBehaviour {
 
             if (PlayerXPos >= transform.position.x)
             {
-                other.GetComponent<CharicterMove>().hspd = other.GetComponent<CharicterMove>().MaxSpeed;
+                other.GetComponent<CharicterMove>().hspd += knockBack;
             }
             else
             {
-                other.GetComponent<CharicterMove>().hspd = -other.GetComponent<CharicterMove>().MaxSpeed;
+                other.GetComponent<CharicterMove>().hspd -= knockBack;
             }
             other.GetComponent<Rigidbody2D>().velocity = new Vector2(other.GetComponent<Rigidbody2D>().velocity.x, knockBack);
         }

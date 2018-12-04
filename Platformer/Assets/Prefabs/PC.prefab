@@ -143,7 +143,7 @@ MonoBehaviour:
   runngun5: {fileID: 21300056, guid: e02a563a695fc184ba3a814f45269b18, type: 3}
   falling: {fileID: 21300064, guid: e02a563a695fc184ba3a814f45269b18, type: 3}
   jumping: {fileID: 21300058, guid: e02a563a695fc184ba3a814f45269b18, type: 3}
-  sprNone: {fileID: 0}
+  sprNone: {fileID: 21300050, guid: e02a563a695fc184ba3a814f45269b18, type: 3}
   dying: {fileID: 21300108, guid: e02a563a695fc184ba3a814f45269b18, type: 3}
   respawn1: {fileID: 21300000, guid: e02a563a695fc184ba3a814f45269b18, type: 3}
   respawn2: {fileID: 21300002, guid: e02a563a695fc184ba3a814f45269b18, type: 3}
@@ -159,7 +159,7 @@ MonoBehaviour:
   frict: 0.5
   MFrict: 0
   JumpHeight: 6
-  MaxSpeed: 3
+  MaxMoveSpeed: 10
   AirSpeed: 0.1
   slideSpeed: 1
   wallCheckRadius: 0.05
@@ -170,7 +170,7 @@ MonoBehaviour:
   respawnTime: 60
   MaxHP: 15
   ShootTime: 60
-  slideDuration: 10
+  slideDuration: 20
   DeathPart: {fileID: 0}
   Projectile: {fileID: 1213767543263922, guid: db585ad9ae92a41ef81e12ac593ce8c2, type: 2}
   FirePoint: {fileID: 4591733317750946}
@@ -185,6 +185,7 @@ MonoBehaviour:
   isWallL: 0
   isWallR: 0
   Shooting: 0
+  Mhspd: 0
   hspd: 0
   HP: 0
   Dead: 0
