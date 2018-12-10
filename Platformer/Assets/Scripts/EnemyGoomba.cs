@@ -6,6 +6,7 @@ public class EnemyGoomba : MonoBehaviour {
 
 
     public float MoveSpeed;
+    public float hspd;
     public float HP;
     public int pointsToAdd;
     public float Damage;
@@ -18,7 +19,8 @@ public class EnemyGoomba : MonoBehaviour {
     public bool Move;
 
     public Transform WallCheck;
-    public Transform FloorCheck;
+    public Transform EdgeCheck;
+    public Transform GroundCheck;
     public float scale;
     public float knockBack;
 
@@ -30,6 +32,7 @@ public class EnemyGoomba : MonoBehaviour {
     public int tick;
     private SpriteRenderer spriteRenderer;
 
+    public bool edge;
     public bool ground;
     public bool wall;
     public bool MovingRight;
@@ -43,8 +46,9 @@ public class EnemyGoomba : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        ground = Physics2D.OverlapCircle(FloorCheck.position, WallCheckRadius, WhatIsWall);
+        edge = Physics2D.OverlapCircle(EdgeCheck.position, WallCheckRadius, WhatIsWall);
         wall = Physics2D.OverlapCircle(WallCheck.position, WallCheckRadius, WhatIsWall);
+        ground = Physics2D.OverlapCircle(GroundCheck.position, WallCheckRadius, WhatIsWall);
     }
 
     // Update is called once per frame
@@ -86,21 +90,23 @@ public class EnemyGoomba : MonoBehaviour {
             Instantiate(Coin, transform.position, transform.rotation);
             Destroy(gameObject);
         }
+        if (ground)
+        {
+            if (wall || !edge)
+            {
+                MovingRight = !MovingRight;
+            }
 
-        if (wall || !ground)
-        {
-            MovingRight = !MovingRight;
-        }
-
-        if (MovingRight)
-        {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
-            transform.localScale = new Vector3(scale, scale, 1f);
-        }
-        else
-        {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(-MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
-            transform.localScale = new Vector3(-scale, scale, 1f);
+            if (MovingRight)
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+                transform.localScale = new Vector3(scale, scale, 1f);
+            }
+            else
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(-MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+                transform.localScale = new Vector3(-scale, scale, 1f);
+            }
         }
 	}
 
@@ -108,19 +114,36 @@ public class EnemyGoomba : MonoBehaviour {
     {
         if (other.name == "PC")
         {
-            other.GetComponent<CharicterMove>().HP -= Damage;
-            //knock back
-            float PlayerXPos = other.transform.position.x;
-
-            if (PlayerXPos >= transform.position.x)
+            if (other.GetComponent<CharicterMove>().state != "sliding")
             {
-                other.GetComponent<CharicterMove>().hspd += knockBack;
+                other.GetComponent<CharicterMove>().HP -= Damage;
+                //knock back
+                float PlayerXPos = other.transform.position.x;
+
+                if (PlayerXPos >= transform.position.x)
+                {
+                    other.GetComponent<CharicterMove>().KBhspd += knockBack;
+                }
+                else
+                {
+                    other.GetComponent<CharicterMove>().KBhspd -= knockBack;
+                }
+                other.GetComponent<Rigidbody2D>().velocity = new Vector2(other.GetComponent<Rigidbody2D>().velocity.x, knockBack / 2);
             }
             else
             {
-                other.GetComponent<CharicterMove>().hspd -= knockBack;
+                float PlayerXPos = other.transform.position.x;
+                if (PlayerXPos >= transform.position.x)
+                {
+                     hspd += knockBack*1.5f;
+                }
+                else
+                {
+                    hspd -= knockBack*1.5f;
+                }
+                GetComponent<Rigidbody2D>().velocity = new Vector2(hspd, knockBack / 2);
             }
-            other.GetComponent<Rigidbody2D>().velocity = new Vector2(other.GetComponent<Rigidbody2D>().velocity.x, knockBack);
+            other.GetComponent<CharicterMove>().state = "normal";
         }
     }
 }

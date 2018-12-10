@@ -14,18 +14,29 @@ public class MovingPlatform : MonoBehaviour {
     public float Dir;
     public float Hspeed;
     public float Vspeed;
+    public float PlayerSpeedCache;
 
 	// Use this for initialization
 	void Start () {
         
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.name == "PC")
+        {
+            PlayerSpeedCache = other.GetComponent<CharicterMove>().hspd;
+            other.GetComponent<CharicterMove>().Ehspd = Hspeed;
+        }
+    }
+
+
+    // Update is called once per frame
+    void Update () {
         if (Oto1 == true) 
         {
-            distance = Mathf.Sqrt(Mathf.Exp(Destination1.x - GetComponent<Rigidbody2D>().transform.position.x) + Mathf.Exp(Destination1.y - GetComponent<Rigidbody2D>().transform.position.y));
-            if (distance < speed)
+            distance = Mathf.Abs(Vector2.Distance(transform.position,Destination1));
+            if (distance > speed/100)
             {
                 Dir = Mathf.Atan2(Destination1.y - GetComponent<Rigidbody2D>().transform.position.y, Destination1.x - GetComponent<Rigidbody2D>().transform.position.x);
                 Hspeed = speed * Mathf.Cos(Dir);
@@ -40,8 +51,8 @@ public class MovingPlatform : MonoBehaviour {
         }
         else
         {
-            distance = Mathf.Sqrt((Destination0.x - GetComponent<Rigidbody2D>().transform.position.x) + (Destination0.y - GetComponent<Rigidbody2D>().transform.position.y));
-            if (distance < speed)
+            distance = Mathf.Abs(Vector2.Distance(transform.position,Destination0));
+            if (distance > speed/100)
             {
                 Dir = Mathf.Atan2(Destination0.y - GetComponent<Rigidbody2D>().transform.position.y, Destination0.x - GetComponent<Rigidbody2D>().transform.position.x);
                 Hspeed = speed * Mathf.Cos(Dir);

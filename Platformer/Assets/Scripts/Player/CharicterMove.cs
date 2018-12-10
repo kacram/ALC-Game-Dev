@@ -75,12 +75,13 @@ public class CharicterMove : MonoBehaviour
     public float Ehspd;
     public float KBhspd;
     public float hspd;
+    public float SlideSpeedBonus;
     public float HP;
     public bool Dead;
     public bool Dead2;
     private int slideDuration2;
     public Transform CurrentCheckPoint;
-    public string state = "normal"; 
+    public string state = "normal";
     int tick;
 
 
@@ -137,7 +138,13 @@ public class CharicterMove : MonoBehaviour
         {
             Dead = true;
         }
-        if (state == "normal")
+
+        if (state == "sliding")
+        {
+            Slide();
+        }
+
+        else if (state == "normal")
         {
             if (Dead == false && Dead2 == false)
             {
@@ -161,17 +168,18 @@ public class CharicterMove : MonoBehaviour
                 //change sprites
                 ChangeSprite();
             }
-            if(Input.GetKey(buttonSlide))
+            if (Input.GetKey(buttonSlide))
             {
                 Slide();
                 state = "sliding";
                 slideDuration2 = slideDuration;
             }
         }
-        else if(state == "sliding")
-        {
-            Slide();
-        }
+    }
+
+    private void LateUpdate()
+    {
+        
     }
 
     //actually jump
@@ -244,7 +252,7 @@ public class CharicterMove : MonoBehaviour
 
     public void Move()
     {
-        
+
         //ground friction
         if (grounded)
         {
@@ -270,13 +278,13 @@ public class CharicterMove : MonoBehaviour
         {
             if (KBhspd != 0)
             {
-                if (KBhspd > frict)
+                if (KBhspd > frict*1.5f)
                 {
-                    KBhspd -= frict;
+                    KBhspd -= frict*1.5f;
                 }
-                else if (KBhspd < -frict)
+                else if (KBhspd < -frict*1.5f)
                 {
-                    KBhspd += frict;
+                    KBhspd += frict*1.5f;
                 }
                 else
                 {
@@ -334,13 +342,16 @@ public class CharicterMove : MonoBehaviour
 
         if (Mathf.Abs(Mhspd) > MaxMoveSpeed)
         {
-           Mhspd = MaxMoveSpeed * Mathf.Sign(Mhspd);
+            Mhspd = MaxMoveSpeed * Mathf.Sign(Mhspd);
         }
 
-        hspd = Mhspd + Ehspd;
+        hspd = Mhspd + Ehspd + KBhspd;
 
         GetComponent<Rigidbody2D>().velocity = new Vector2(hspd, GetComponent<Rigidbody2D>().velocity.y);
-        Ehspd = 0;
+        if (grounded)
+        {
+            Ehspd = 0;
+        }
     }
 
     public void ChangeSprite()
@@ -427,7 +438,7 @@ public class CharicterMove : MonoBehaviour
             }
         }
 
-        
+
 
         if (grounded == false)
         {
@@ -548,13 +559,25 @@ public class CharicterMove : MonoBehaviour
     public void Slide()
     {
         state = "sliding";
+        if (Input.GetKey(KeyCode.Space))
+        {
+            state = "normal";
+            return;
+        }
         slideDuration2--;
         if (slideDuration2 <= 0)
         {
             state = "normal";
             return;
         }
+
+        if (isWallL || isWallR)
+        {
+            state = "normal";
+            return;
+        }
+
         spriteRenderer.sprite = slide;
-        Mhspd = Mathf.Sign(Mhspd) * MaxMoveSpeed;
+        Mhspd = Mathf.Sign(transform.localScale.x) * MaxMoveSpeed + SlideSpeedBonus * Mathf.Sign(transform.localScale.x);
     }
 }
