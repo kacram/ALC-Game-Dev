@@ -43,6 +43,7 @@ public class CharicterMove : MonoBehaviour
     public int MaxMoveSpeed;
     public float AirSpeed;
     public float slideSpeed;
+    public float climbSpeed;
     public float wallCheckRadius;
     public float groundCheckRadius;
     public int animSpeed;
@@ -77,6 +78,7 @@ public class CharicterMove : MonoBehaviour
     public float hspd;
     public float SlideSpeedBonus;
     public float HP;
+    public float gravcache;
     public bool Dead;
     public bool Dead2;
     private int slideDuration2;
@@ -110,14 +112,14 @@ public class CharicterMove : MonoBehaviour
     void FixedUpdate()
     {
         //checks to see if there is ground
-        grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+        grounded = Physics2D.OverlapCircle(groundCheck.position, wallCheckRadius, whatIsGround);
 
         //checks for wall on left
-        isWallL = Physics2D.OverlapCircle(WallCheckL.position, wallCheckRadius, whatIsGround);
+        isWallL = Physics2D.OverlapArea(new Vector2(transform.localPosition.x - .11f, transform.localPosition.y + .07f), new Vector2(transform.localPosition.x - .1f, transform.localPosition.y - .08f), whatIsGround);
 
 
         //checks for wall on right
-        isWallR = Physics2D.OverlapCircle(WallCheckR.position, wallCheckRadius, whatIsGround);
+        isWallR = Physics2D.OverlapArea(new Vector2(transform.localPosition.x + .11f, transform.localPosition.y + .07f), new Vector2(transform.localPosition.x + .1f, transform.localPosition.y - .08f), whatIsGround);
 
 
     }
@@ -142,6 +144,11 @@ public class CharicterMove : MonoBehaviour
         if (state == "sliding")
         {
             Slide();
+        }
+
+        else if (state == "climbing")
+        {
+            Climb();
         }
 
         else if (state == "normal")
@@ -179,7 +186,14 @@ public class CharicterMove : MonoBehaviour
 
     private void LateUpdate()
     {
-        
+        if (Input.GetKey(KeyCode.R))
+        {
+            HP = 0;
+        }
+        if (HP < 0)
+        {
+            HP = 0;
+        }
     }
 
     //actually jump
@@ -579,5 +593,23 @@ public class CharicterMove : MonoBehaviour
 
         spriteRenderer.sprite = slide;
         Mhspd = Mathf.Sign(transform.localScale.x) * MaxMoveSpeed + SlideSpeedBonus * Mathf.Sign(transform.localScale.x);
+    }
+
+    private void OnCollisionStay2D(Collider2D other)
+    {
+        if (other.tag == "ladder")
+        {
+            state = "climbing";
+            gravcache = GetComponent<Rigidbody2D>().gravityScale;
+            GetComponent<Rigidbody2D>().gravityScale = 0;
+        }
+        else
+        {
+            if (state == "climbing")
+            {
+                state = "normal";
+                GetComponent<Rigidbody2D>().gravityScale = gravcache;
+            }
+        }
     }
 }
