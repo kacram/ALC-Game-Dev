@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GoodProjectile
   - Enemy
+  - ladder
   layers:
   - Default
   - TransparentFX

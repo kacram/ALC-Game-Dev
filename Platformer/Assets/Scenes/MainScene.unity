@@ -304,10 +304,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625c29b6936514579ab4e8b18659da9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Destination0: {x: 14.3, y: 7.5}
-  Destination1: {x: 14.3, y: 50}
+  Destination0: {x: 0, y: 0}
+  Destination1: {x: 0, y: 0}
   Oto1: 0
-  speed: 5
+  speed: 0
   distance: 0
   Dir: 0
   Hspeed: 0
@@ -554,10 +554,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625c29b6936514579ab4e8b18659da9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Destination0: {x: 2.85, y: 7.5}
-  Destination1: {x: 10, y: 7.5}
+  Destination0: {x: 0, y: 0}
+  Destination1: {x: 0, y: 0}
   Oto1: 0
-  speed: 2
+  speed: 0
   distance: 0
   Dir: 0
   Hspeed: 0
@@ -860,7 +860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbeb8e615d742448a32c37ec05106ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResetTimerTime: 500
+  ResetTimerTime: 50
 --- !u!61 &329869983
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1062,7 +1062,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 389055419}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.008, y: 0.134, z: 0}
+  m_LocalPosition: {x: -0.003, y: -0.134, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1293423223}
@@ -1221,7 +1221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbeb8e615d742448a32c37ec05106ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResetTimerTime: 500
+  ResetTimerTime: 50
 --- !u!61 &684519667
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1444,7 +1444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NearbyEnemy: 0
   Enemy: {fileID: 1445477782824318, guid: 6f8e5b6f74bf04298bef3fb207dd1428, type: 2}
-  EnemyCheckRadius: 6
+  EnemyCheckRadius: 4
   WhatIsEnemy:
     serializedVersion: 2
     m_Bits: 512
@@ -1501,7 +1501,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 821143379}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.68, y: 0.52, z: -0.115986794}
+  m_LocalPosition: {x: 0.01, y: 0.44, z: -0.115986794}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1537,7 +1537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbeb8e615d742448a32c37ec05106ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResetTimerTime: 500
+  ResetTimerTime: 50
 --- !u!61 &823655030
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1684,7 +1684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 0
-  healthSize: 5.8
+  healthSize: 6
   Player: {fileID: 1293423218}
 --- !u!212 &849451279
 SpriteRenderer:
@@ -2302,8 +2302,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 1293423223}
-  offsetX: -0.1
-  offsetY: -0.02
+  offsetX: 0.09
+  offsetY: 0
   offsetZ: 0
 --- !u!1 &1036475142
 GameObject:
@@ -2546,7 +2546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 1293423223}
   offsetX: 0
-  offsetY: -0.175
+  offsetY: -0.145
   offsetZ: 0
 --- !u!1 &1078450044
 GameObject:
@@ -2672,7 +2672,7 @@ GameObject:
   - component: {fileID: 1165200480}
   m_Layer: 0
   m_Name: Ladder (1)
-  m_TagString: Untagged
+  m_TagString: ladder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3219,7 +3219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLocation: {fileID: 1293423223}
   offsetX: 0.1
-  offsetY: -0.02
+  offsetY: 0
   offsetZ: 0
 --- !u!4 &1383786869 stripped
 Transform:
@@ -3345,7 +3345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbeb8e615d742448a32c37ec05106ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResetTimerTime: 500
+  ResetTimerTime: 50
 --- !u!61 &1491640562
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3692,7 +3692,7 @@ GameObject:
   - component: {fileID: 1673415297}
   m_Layer: 0
   m_Name: Ladder (2)
-  m_TagString: Untagged
+  m_TagString: ladder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3859,7 +3859,7 @@ MonoBehaviour:
   playerLocation: {fileID: 1293423223}
   offsetX: 0
   offsetY: 0
-  offsetZ: -100
+  offsetZ: -20.08
 --- !u!1 &1707750799
 GameObject:
   m_ObjectHideFlags: 0
@@ -4009,6 +4009,16 @@ Prefab:
       propertyPath: slideDuration
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 114987329817931362, guid: 83ff4e0bacac74ffa89deeff110f802f,
+        type: 2}
+      propertyPath: gravcache
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114987329817931362, guid: 83ff4e0bacac74ffa89deeff110f802f,
+        type: 2}
+      propertyPath: climbSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83ff4e0bacac74ffa89deeff110f802f, type: 2}
   m_IsPrefabAsset: 0
@@ -4146,7 +4156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbeb8e615d742448a32c37ec05106ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResetTimerTime: 500
+  ResetTimerTime: 50
 --- !u!1 &1803665441
 GameObject:
   m_ObjectHideFlags: 0
@@ -4177,7 +4187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbeb8e615d742448a32c37ec05106ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResetTimerTime: 500
+  ResetTimerTime: 50
 --- !u!61 &1803665443
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4413,7 +4423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbeb8e615d742448a32c37ec05106ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResetTimerTime: 500
+  ResetTimerTime: 50
 --- !u!61 &1941209948
 BoxCollider2D:
   m_ObjectHideFlags: 0

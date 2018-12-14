@@ -595,21 +595,35 @@ public class CharicterMove : MonoBehaviour
         Mhspd = Mathf.Sign(transform.localScale.x) * MaxMoveSpeed + SlideSpeedBonus * Mathf.Sign(transform.localScale.x);
     }
 
-    private void OnCollisionStay2D(Collider2D other)
+    private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.tag == "ladder")
+        if(other.gameObject.tag == "ladder")
         {
-            state = "climbing";
-            gravcache = GetComponent<Rigidbody2D>().gravityScale;
-            GetComponent<Rigidbody2D>().gravityScale = 0;
-        }
-        else
-        {
-            if (state == "climbing")
+            if (state == "normal")
             {
-                state = "normal";
-                GetComponent<Rigidbody2D>().gravityScale = gravcache;
+                if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W))
+                {
+                    state = "climbing";
+                    gravcache = GetComponent<Rigidbody2D>().gravityScale;
+                    GetComponent<Rigidbody2D>().gravityScale = 0;
+                }
             }
+        }
+    }
+    public void Climb()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            GetComponent<Rigidbody2D>().position = new Vector2(GetComponent<Rigidbody2D>().position.x,GetComponent<Rigidbody2D>().position.y + climbSpeed);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            GetComponent<Rigidbody2D>().position = new Vector2(GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y - climbSpeed);
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            state = "normal";
+            GetComponent<Rigidbody2D>().gravityScale = gravcache;
         }
     }
 }
