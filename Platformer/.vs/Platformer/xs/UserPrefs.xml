@@ -1,11 +1,11 @@
 ﻿<Properties StartupConfiguration="{100AE41E-9853-00A1-0814-C759729749EB}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/FollowPlayer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/CharicterMove.cs">
     <Files>
       <File FileName="Assets/Scripts/EnemyGoomba.cs" Line="121" Column="63" />
       <File FileName="Assets/Scripts/EnemySpawner.cs" Line="24" Column="70" />
       <File FileName="Assets/Scripts/CoinPickup.cs" Line="29" Column="10" />
       <File FileName="Assets/Scripts/Player/Health.cs" Line="15" Column="77" />
-      <File FileName="Assets/Scripts/Player/CharicterMove.cs" Line="627" Column="10" />
+      <File FileName="Assets/Scripts/Player/CharicterMove.cs" Line="601" Column="10" />
       <File FileName="Assets/Scripts/Menu/MenuScript.cs" Line="17" Column="22" />
       <File FileName="Assets/Scripts/MovingPlatform.cs" Line="27" Column="10" />
       <File FileName="Assets/Scripts/Ladder.cs" Line="16" Column="6" />
